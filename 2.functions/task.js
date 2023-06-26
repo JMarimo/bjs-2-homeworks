@@ -1,41 +1,31 @@
 function getArrayParams(...arr) {
- 
-  let min = +arr[0], max = +arr[0], sum = 0, count = 0, result = 0;
- 
-  for (let i = 0; i < arr.length; i++) {
-    count++;
-    sum += arr[i];
- 
-    if (arr[i] > max) {
+    
+  let min = Infinity;
+  let max = -Infinity;
+  let sum = 0;
+  for(let i=0; i < arr.length; i++){
+    if(arr[i] > max){
       max = arr[i];
     }
-
-    if (arr[i] < min) {
+    if (arr[i] < min){
       min = arr[i];
     }
-
-    result = +(sum / count);
-    avg = +(result.toFixed(2));
+    sum += arr[i];
   }
-
+    avg = +(sum / arr.length).toFixed(2);
+  
   return { min: min, max: max, avg: avg };
-};
+}
 
 //=========================
 
 function summElementsWorker(...arr) {
+  sum = 0;
   
-  if (arr.length === 0) {
-    return 0;
-  }
-  
-  let sumElementsArray = 0;
- 
   for (let i = 0; i < arr.length; i++) {
-    sumElementsArray += arr[i];
+    sum += arr[i];
   }
-  
-  return sumElementsArray;
+    return sum;
 };
 
 function differenceMaxMinWorker(...arr) {
@@ -44,17 +34,11 @@ function differenceMaxMinWorker(...arr) {
     return 0;
   }
 
-  let max = 0, min = 0;
-
-  for (let i = 0; i < arr.length; i++) {
-    max = Math.max(...arr);
-    min = Math.min(...arr);
-  
-    let differenceMaxMin = +(max - min);
-    
-    return differenceMaxMin;
-  }
-};
+  let max = Math.max(...arr);
+  let min = Math.min(...arr);
+       
+  return max - min;;
+  };
 
 function differenceEvenOddWorker(...arr) {
 
@@ -64,8 +48,6 @@ function differenceEvenOddWorker(...arr) {
   
   let sumEvenElement = 0, sumOddElement = 0;
  
-  let difference;
-
   for(let i = 0; i < arr.length; i++) {
     if ((arr[i] % 2) === 0) {
       sumEvenElement += arr[i];
@@ -74,9 +56,7 @@ function differenceEvenOddWorker(...arr) {
     }
   }
 
-  difference = +(sumEvenElement - sumOddElement);
-
-  return difference;
+  return sumEvenElement - sumOddElement;
 };
 
 function averageEvenElementsWorker(...arr) {
@@ -85,20 +65,19 @@ function averageEvenElementsWorker(...arr) {
     return 0;
   }
   
-  let sumEvenElement = 0, countEvenElement = 0, result = 0;
+  let sumEvenElement = 0, countEvenElement = 0;
   
   for (let i = 0; i < arr.length; i++) {
   
-    if (arr[i] % 2 === 0) {
-      sumEvenElement += arr[i];
-      countEvenElement++;
+    for(let i = 0; i < arr.length; i++) {
+      if (arr[i] % 2) { 
+        sumOddElement += arr[i];
+      } else {
+        sumEvenElement += arr[i];
+      }
     }
-  }
- 
-  result = +(sumEvenElement / countEvenElement);
- 
-  return result;
-};
+ return sumEvenElement / countEvenElement;
+ };
 
 //===========================
 
