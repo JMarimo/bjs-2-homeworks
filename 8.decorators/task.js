@@ -24,29 +24,27 @@ module.exports = {
 }
 
 //Задача № 2
-const md5 = require('./js-md5.js');
-
 function debounceDecoratorNew(func, delay) {
-        let timeoutId = null;
-        wrapper.count = 0;
-        wrapper.allCount = 0;
-
-        function wrapper(...args) {
-        wrapper.allCount++;
-        if (timeoutId === null) {
-            wrapper.count++;
-            func(...args)
-        }
-        clearTimeout(timeoutId);
-        timeoutId = setTimeout(() => {
+    let timeoutId;
+    let isTrottled = false;
+    function wrapper(...args) {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout( () => {
+        func(args);
+        wrapper.count++;
+      }, delay);
+      if (!isTrottled) {
         func(...args);
         wrapper.count++;
-        }, delay);
+        isTrottled = true;
+      }
+      wrapper.allCount++;
     }
-
+    wrapper.count = 0;
+    wrapper.allCount = 0;
     return wrapper;
-    }
+  }
 
 module.exports = {
-  cachingDecoratorNew
+  debounceDecoratorNew, 
 }
